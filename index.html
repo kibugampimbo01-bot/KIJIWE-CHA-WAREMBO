@@ -1,1 +1,399 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kijiwe Chetu - Video Exclusive</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background-color: #021238;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 25px 15px 60px;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+        }
+        .profile-pic {
+            width: 105px;
+            height: 105px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 14px;
+            border: 2px solid rgba(255,255,255,0.25);
+        }
+        .bio-title {
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 22px;
+            text-transform: uppercase;
+            padding: 0 8px;
+        }
+        /* Kadi za Orodha ya Video */
+        .video-card {
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            color: #000000;
+            border-radius: 10px;
+            padding: 10px 12px;
+            margin-bottom: 16px;
+            border: 3.5px solid #00e639;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.15s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+            text-align: left;
+        }
+        .video-card:active {
+            transform: scale(0.98);
+        }
+        .thumb-wrapper {
+            position: relative;
+            width: 58px;
+            height: 58px;
+            flex-shrink: 0;
+        }
+        .link-thumb {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .lock-badge {
+            position: absolute;
+            bottom: -4px;
+            right: -4px;
+            background: #ff1a1a;
+            color: #fff;
+            font-size: 11px;
+            padding: 2px 5px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .unlocked .lock-badge {
+            background: #00b32d;
+        }
+        .link-text {
+            flex-grow: 1;
+            font-weight: 800;
+            font-size: 14px;
+            text-align: center;
+            padding: 0 10px;
+            line-height: 1.35;
+            text-transform: uppercase;
+        }
+        .status-tag {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: #d90000;
+            margin-top: 4px;
+        }
+        .unlocked .status-tag {
+            color: #009926;
+        }
+
+        /* Rangi za Mipaka */
+        .border-green { border-color: #00e639; }
+        .border-red { border-color: #ff1a1a; }
+        .border-blue { border-color: #0033ff; }
+        .border-pink { border-color: #e600ac; }
+
+        /* KIZUIZI CHA MALIPO (PAYWALL MODAL) */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+        .modal-box {
+            background: #0b1e4d;
+            border: 2px solid #00e639;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            padding: 22px 18px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px; right: 14px;
+            font-size: 24px;
+            color: #aaa;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .modal-icon {
+            font-size: 38px;
+            margin-bottom: 8px;
+        }
+        .modal-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: #00e639;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .modal-desc {
+            font-size: 14px;
+            color: #e0e6f5;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        .price-tag {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 800;
+            color: #ffdd00;
+            margin-bottom: 16px;
+        }
+        .pay-btn {
+            display: block;
+            width: 100%;
+            background: #00e639;
+            color: #000000;
+            font-weight: 800;
+            font-size: 15px;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            text-decoration: none;
+            margin-bottom: 12px;
+        }
+        .verify-section {
+            margin-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 12px;
+        }
+        .verify-input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            margin-bottom: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .verify-btn {
+            width: 100%;
+            padding: 10px;
+            background: #ffdd00;
+            color: #000;
+            font-weight: 800;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* SEHEMU YA KUANGALIA VIDEO IKISHAFUNGULIWA */
+        .player-box {
+            background: #000;
+            border: 2px solid #00e639;
+            border-radius: 14px;
+            width: 100%;
+            max-width: 440px;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+        video {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+            max-height: 70vh;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Picha ya Juu -->
+    <img src="https://via.placeholder.com/150/ff1a1a/ffffff?text=LOGO" alt="Profile" class="profile-pic">
+    
+    <div class="bio-title">
+        CHAGUA KIPENGELE UNACHOTAKA 👇🏽 KILA SEHEMU INAJITEGEMEA 👇🏽
+    </div>
+
+    <!-- KIPENGELE 1 -->
+    <div id="card-1" class="video-card border-green" onclick="handleCardClick('1', 'VIDEO ZA KIBONGO EXCLUSIVE', 'TSh 2,000', 'https://www.w3schools.com/html/mov_bbb.mp4')">
+        <div class="thumb-wrapper">
+            <img src="https://via.placeholder.com/100/222/fff?text=VID+1" class="link-thumb">
+            <span id="badge-1" class="lock-badge">🔒</span>
+        </div>
+        <div class="link-text">
+            VIDEO ZA KIBONGO EXCLUSIVE
+            <span id="status-1" class="status-tag">IMEFUNGWA • LIPIA TSH 2,000</span>
+        </div>
+    </div>
+
+    <!-- KIPENGELE 2 -->
+    <div id="card-2" class="video-card border-red" onclick="handleCardClick('2', 'CONNECTION ZA MASTAA', 'TSh 3,000', 'https://www.w3schools.com/html/mov_bbb.mp4')">
+        <div class="thumb-wrapper">
+            <img src="https://via.placeholder.com/100/444/fff?text=VID+2" class="link-thumb">
+            <span id="badge-2" class="lock-badge">🔒</span>
+        </div>
+        <div class="link-text">
+            CONNECTION ZA MASTAA
+            <span id="status-2" class="status-tag">IMEFUNGWA • LIPIA TSH 3,000</span>
+        </div>
+    </div>
+
+    <!-- KIPENGELE 3 -->
+    <div id="card-3" class="video-card border-blue" onclick="handleCardClick('3', 'VIDEO ZA WANACHUO', 'TSh 2,500', 'https://www.w3schools.com/html/mov_bbb.mp4')">
+        <div class="thumb-wrapper">
+            <img src="https://via.placeholder.com/100/333/fff?text=VID+3" class="link-thumb">
+            <span id="badge-3" class="lock-badge">🔒</span>
+        </div>
+        <div class="link-text">
+            VIDEO ZA WANACHUO
+            <span id="status-3" class="status-tag">IMEFUNGWA • LIPIA TSH 2,500</span>
+        </div>
+    </div>
+</div>
+
+<!-- KIZUIZI CHA MALIPO (PAYWALL POP-UP) -->
+<div id="paywallModal" class="modal-overlay">
+    <div class="modal-box">
+        <span class="close-btn" onclick="closeModal('paywallModal')">&times;</span>
+        <div class="modal-icon">🔒</div>
+        <div id="modalTitle" class="modal-title">JINA LA KIPENGELE</div>
+        <p class="modal-desc">
+            Sehemu hii imefungwa. Ukifanya malipo utafunguliwa <b>sehemu hii pekee</b> moja kwa moja hapa hapa.
+        </p>
+        <div id="modalPrice" class="price-tag">BEI: TSH 2,000</div>
+        
+        <!-- Kitufe cha kwenda kulipia (Flutterwave/Selcom au WhatsApp) -->
+        <a id="payLinkBtn" href="#" target="_blank" class="pay-btn">LIPIA SASA KWA SIMU</a>
+
+        <!-- Sehemu ya kuweka Code ya kufungua baada ya kulipa -->
+        <div class="verify-section">
+            <p style="font-size: 12px; color: #ccc; margin-bottom: 6px;">Umeshalipia? Weka namba ya siri (Code) kufungua sehemu hii:</p>
+            <input type="text" id="unlockCodeInput" class="verify-input" placeholder="Mfano: VIP101">
+            <button class="verify-btn" onclick="verifyAndUnlock()">FUNGUA VIDEO SASA</button>
+        </div>
+    </div>
+</div>
+
+<!-- DIRISHA LA KUANGALIA VIDEO IKISHAFUNGULIWA -->
+<div id="playerModal" class="modal-overlay">
+    <div class="player-box">
+        <span class="close-btn" onclick="closeVideoPlayer()">&times;</span>
+        <h4 id="playerTitle" style="color: #00e639; font-size: 15px;">INACHEZA VIDEO</h4>
+        <video id="videoPlayer" controls controlsList="nodownload">
+            <source id="videoSource" src="" type="video/mp4">
+        </video>
+    </div>
+</div>
+
+<script>
+    let currentId = '';
+    let currentTitle = '';
+    let currentVideoUrl = '';
+
+    // Namba za siri (Passwords) za kila sehemu kipekee
+    const sectionPasswords = {
+        '1': 'BONGO11',
+        '2': 'STAA22',
+        '3': 'CHUO33'
+    };
+
+    // Link za malipo za kila sehemu kipekee (weka link zako za Flutterwave/Selcom au WhatsApp)
+    const paymentLinks = {
+        '1': 'https://wa.me/255700000000?text=Nataka%20kulipia%20VIDEO%20ZA%20KIBONGO%20(TSh%202,000)',
+        '2': 'https://wa.me/255700000000?text=Nataka%20kulipia%20CONNECTION%20ZA%20MASTAA%20(TSh%203,000)',
+        '3': 'https://wa.me/255700000000?text=Nataka%20kulipia%20VIDEO%20ZA%20WANACHUO%20(TSh%202,500)'
+    };
+
+    // Angalia kama mteja alishalipia baadhi ya sehemu awali kwenye simu yake
+    window.onload = function() {
+        ['1', '2', '3'].forEach(id => {
+            if (localStorage.getItem('unlocked_' + id) === 'true') {
+                markCardUnlocked(id);
+            }
+        });
+    };
+
+    function handleCardClick(id, title, price, videoUrl) {
+        currentId = id;
+        currentTitle = title;
+        currentVideoUrl = videoUrl;
+
+        // Kama alishalipia sehemu hii, fungua video moja kwa moja!
+        if (localStorage.getItem('unlocked_' + id) === 'true') {
+            openVideoPlayer(title, videoUrl);
+        } else {
+            // Kama hajalipia sehemu hii, onyesha kizuizi cha malipo
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalPrice').innerText = 'LIPIA: ' + price;
+            document.getElementById('payLinkBtn').href = paymentLinks[id];
+            document.getElementById('unlockCodeInput').value = '';
+            document.getElementById('paywallModal').style.display = 'flex';
+        }
+    }
+
+    function verifyAndUnlock() {
+        const enteredCode = document.getElementById('unlockCodeInput').value.trim().toUpperCase();
+        if (enteredCode === sectionPasswords[currentId]) {
+            // Hifadhi kuwa amelipia sehemu HII PEKEE
+            localStorage.setItem('unlocked_' + currentId, 'true');
+            markCardUnlocked(currentId);
+            closeModal('paywallModal');
+            openVideoPlayer(currentTitle, currentVideoUrl);
+        } else {
+            alert('Namba ya siri sio sahihi kwa sehemu hii! Hakikisha umelipia kipengele hiki kwanza.');
+        }
+    }
+
+    function markCardUnlocked(id) {
+        const card = document.getElementById('card-' + id);
+        card.classList.add('unlocked');
+        document.getElementById('badge-' + id).innerText = '🔓';
+        document.getElementById('status-' + id).innerText = 'IMEFUNGULIWA • BONYEZA KUANGALIA';
+    }
+
+    function openVideoPlayer(title, url) {
+        document.getElementById('playerTitle').innerText = title;
+        const player = document.getElementById('videoPlayer');
+        document.getElementById('videoSource').src = url;
+        player.load();
+        document.getElementById('playerModal').style.display = 'flex';
+        player.play();
+    }
+
+    function closeVideoPlayer() {
+        const player = document.getElementById('videoPlayer');
+        player.pause();
+        closeModal('playerModal');
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
 index.html
