@@ -3,465 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUNGUZA SAUTI 🔇🔥 - Exclusive Videos</title>
+    <title>Wallet & Withdraw - Creator Dashboard</title>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            scroll-behavior: smooth;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
         body {
             background-color: #021238;
             color: #ffffff;
+            padding: 20px 15px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 25px 15px 70px;
-            min-height: 100vh;
-        }
-        .container {
-            width: 100%;
-            max-width: 480px;
-            text-align: center;
-        }
-        .scroll-controls {
-            position: fixed;
-            left: 10px;
-            top: 25%;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 900;
-        }
-        .scroll-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.22);
-            backdrop-filter: blur(4px);
-            color: #ffffff;
-            border: 1px solid rgba(255,255,255,0.3);
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
             justify-content: center;
         }
-        .profile-pic {
-            width: 112px;
-            height: 112px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 12px;
-            border: 3px solid #ff1a1a;
-            box-shadow: 0 0 18px rgba(255, 26, 26, 0.5);
+        .dashboard {
+            width: 100%;
+            max-width: 460px;
         }
-        .brand-name {
-            font-size: 20px;
-            font-weight: 900;
-            letter-spacing: 1px;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            font-size: 18px;
             color: #ffdd00;
-            margin-bottom: 6px;
-            text-transform: uppercase;
         }
-        .bio-title {
-            font-size: 14px;
-            font-weight: 600;
-            line-height: 1.5;
-            margin-bottom: 24px;
-            color: #e6ecff;
-            text-transform: uppercase;
-            padding: 0 10px;
-        }
-        .video-card {
-            display: flex;
-            align-items: center;
-            background-color: #ffffff;
-            color: #000000;
-            border-radius: 10px;
-            padding: 10px 12px;
-            margin-bottom: 16px;
-            border: 4px solid #00e639;
-            cursor: pointer;
-            position: relative;
-            transition: transform 0.15s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-        }
-        .video-card:active {
-            transform: scale(0.97);
-        }
-        .thumb-wrapper {
-            position: relative;
-            width: 62px;
-            height: 62px;
-            flex-shrink: 0;
-        }
-        .link-thumb {
-            width: 100%;
-            height: 100%;
-            border-radius: 8px;
-            object-fit: cover;
-        }
-        .lock-badge {
-            position: absolute;
-            bottom: -4px;
-            right: -4px;
-            background: #ff1a1a;
-            color: #fff;
-            font-size: 11px;
-            padding: 2px 5px;
-            border-radius: 6px;
-            font-weight: bold;
-        }
-        .unlocked .lock-badge {
-            background: #00b32d;
-        }
-        .link-text {
-            flex-grow: 1;
-            font-weight: 800;
-            font-size: 14.5px;
-            text-align: center;
-            padding: 0 10px;
-            line-height: 1.35;
-            text-transform: uppercase;
-        }
-        .status-tag {
-            display: block;
-            font-size: 11px;
-            font-weight: 700;
-            color: #d90000;
-            margin-top: 5px;
-        }
-        .unlocked .status-tag {
-            color: #009926;
-        }
-        .border-green { border-color: #00e639; }
-        .border-red { border-color: #ff1a1a; }
-        .border-blue { border-color: #0033ff; }
-        .border-pink { border-color: #e600ac; }
-        .border-yellow { border-color: #ccff00; }
-        .border-purple { border-color: #b300ff; }
-
-        /* KIZUIZI CHA MALIPO */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-        }
-        .modal-box {
-            background: #0b1e4d;
-            border: 2.5px solid #00e639;
-            border-radius: 16px;
-            width: 100%;
-            max-width: 400px;
-            padding: 20px 16px;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 10px 35px rgba(0,0,0,0.7);
-        }
-        .close-btn {
-            position: absolute;
-            top: 8px; right: 14px;
-            font-size: 26px;
-            color: #ccc;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .modal-title {
-            font-size: 16px;
-            font-weight: 800;
+        .badge-admin {
+            background: rgba(0, 230, 57, 0.2);
             color: #00e639;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-        }
-        .price-tag {
-            background: rgba(255,255,255,0.12);
-            padding: 8px;
-            border-radius: 8px;
-            font-size: 17px;
-            font-weight: 900;
-            color: #ffdd00;
-            margin-bottom: 12px;
-        }
-        /* Boksi la Namba ya Malipo */
-        .payment-info-box {
-            background: #04102e;
-            border: 1.5px dashed #ffdd00;
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 12px;
-        }
-        .pay-number {
-            font-size: 21px;
-            font-weight: 900;
-            color: #ffffff;
-            letter-spacing: 1px;
-            margin: 4px 0;
-        }
-        .copy-btn {
-            background: #ffdd00;
-            color: #000;
-            border: none;
-            padding: 7px 14px;
-            border-radius: 6px;
-            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 12px;
             font-size: 12px;
-            cursor: pointer;
-            margin-top: 6px;
+            font-weight: bold;
         }
-        .wa-btn {
-            display: block;
-            width: 100%;
-            background: #25D366;
-            color: #000000;
+        /* Kadi ya Salio */
+        .balance-card {
+            background: linear-gradient(135deg, #0b2463, #06153d);
+            border: 2px solid #00e639;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        }
+        .label {
+            font-size: 13px;
+            color: #b8c7e8;
+        }
+        .main-balance {
+            font-size: 32px;
             font-weight: 900;
-            font-size: 14px;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            text-transform: uppercase;
-            text-decoration: none;
-            margin-bottom: 12px;
+            color: #00e639;
+            margin: 6px 0 14px;
         }
-        .verify-section {
+        .breakdown {
+            display: flex;
+            justify-content: space-between;
             border-top: 1px solid rgba(255,255,255,0.15);
-            padding-top: 10px;
+            padding-top: 12px;
+            font-size: 13px;
         }
-        .verify-input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: none;
-            margin-bottom: 8px;
-            text-align: center;
+        .breakdown div span {
+            display: block;
             font-weight: bold;
             font-size: 15px;
+            margin-top: 3px;
         }
-        .verify-btn {
+        .cut-text { color: #ff4d4d; }
+        /* Fomu ya Withdraw */
+        .withdraw-box {
+            background: #0b1e4d;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .withdraw-box h3 {
+            font-size: 16px;
+            margin-bottom: 14px;
+            color: #ffdd00;
+        }
+        .form-group {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            color: #ccc;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
             width: 100%;
-            padding: 11px;
-            background: #00e639;
-            color: #000;
-            font-weight: 900;
-            border: none;
+            padding: 12px;
             border-radius: 8px;
+            border: none;
+            font-size: 15px;
+            font-weight: bold;
+            background: #ffffff;
+            color: #000000;
+        }
+        .withdraw-btn {
+            width: 100%;
+            padding: 14px;
+            background: #00e639;
+            color: #000000;
+            font-weight: 900;
+            font-size: 15px;
+            border: none;
+            border-radius: 10px;
             cursor: pointer;
             text-transform: uppercase;
+            margin-top: 6px;
         }
-        .player-box {
-            background: #000;
-            border: 2px solid #00e639;
-            border-radius: 14px;
-            width: 100%;
-            max-width: 440px;
-            padding: 15px;
-            text-align: center;
-            position: relative;
+        /* Historia ya Miamala */
+        .history-box h3 {
+            font-size: 15px;
+            margin-bottom: 10px;
+            color: #e0e6f5;
         }
-        video {
-            width: 100%;
-            border-radius: 8px;
-            margin-top: 10px;
-            max-height: 70vh;
+        .tx-item {
+            background: rgba(255,255,255,0.07);
+            padding: 12px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+        .status-pending {
+            background: #ffdd00;
+            color: #000;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 11px;
+        }
+        .status-paid {
+            background: #00e639;
+            color: #000;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 11px;
         }
     </style>
 </head>
 <body>
 
-<div class="scroll-controls">
-    <button class="scroll-btn" onclick="window.scrollTo(0,0)">↑</button>
-    <button class="scroll-btn" onclick="window.scrollTo(0,document.body.scrollHeight)">↓</button>
-</div>
-
-<div class="container">
-    <img src="https://via.placeholder.com/150/ff1a1a/ffffff?text=18+" alt="Profile" class="profile-pic">
-    <div class="brand-name">PUNGUZA SAUTI 🔇🔥</div>
-    <div class="bio-title">
-        KIJIWE CHA SIRI 👇🏽 CHAGUA VIDEO UNAYOTAKA HAPA CHINI, UKIBONYEZA USIWE NA HARAKA 👇🏽
+<div class="dashboard">
+    <div class="header">
+        <h2>AKAUNTI YANGU (WALLET)</h2>
+        <span class="badge-admin">Makato ya Mfumo: 20%</span>
     </div>
 
-    <!-- KIPENGELE 1 -->
-    <div id="card-1" class="video-card border-green" onclick="handleCardClick('1', 'VIDEO ZA KIBONGO EXCLUSIVE', 'TSh 2,000', 'https://www.w3schools.com/html/mov_bbb.mp4')">
-        <div class="thumb-wrapper">
-            <img src="https://via.placeholder.com/100/222/fff?text=1" class="link-thumb">
-            <span id="badge-1" class="lock-badge">🔒</span>
-        </div>
-        <div class="link-text">
-            VIDEO ZA KIBONGO EXCLUSIVE
-            <span id="status-1" class="status-tag">IMEFUNGWA • LIPIA TSH 2,000</span>
-        </div>
-    </div>
-
-    <!-- KIPENGELE 2 -->
-    <div id="card-2" class="video-card border-red" onclick="handleCardClick('2', 'CONNECTION ZA MASTAA ZILIZOVUJA', 'TSh 3,000', 'https://www.w3schools.com/html/mov_bbb.mp4')">
-        <div class="thumb-wrapper">
-            <img src="https://via.placeholder.com/100/333/fff?text=2" class="link-thumb">
-            <span id="badge-2" class="lock-badge">🔒</span>
-        </div>
-        <div class="link-text">
-            CONNECTION ZA MASTAA ZILIZOVUJA 🍑
-            <span id="status-2" class="status-tag">IMEFUNGWA • LIPIA TSH 3,000</span>
+    <!-- KADI YA SALIO NA MAKATO -->
+    <div class="balance-card">
+        <div class="label">SALIO HALISI LA KUTOA (BAADA YA MAKATO)</div>
+        <div id="netBalanceDisplay" class="main-balance">TSh 40,000</div>
+        
+        <div class="breakdown">
+            <div>
+                Jumla ya Mauzo
+                <span id="grossDisplay">TSh 50,000</span>
+            </div>
+            <div>
+                Makato ya Huduma (20%)
+                <span id="feeDisplay" class="cut-text">- TSh 10,000</span>
+            </div>
         </div>
     </div>
 
-    <!-- KIPENGELE 3 -->
-    <div id="card-3" class="video-card border-blue" onclick="handleCardClick('3', 'KONEKSHENI VIDEOS ZA WANACHUO', 'TSh 2,500', 'https://www.w3schools.com/html/mov_bbb.mp4')">
-        <div class="thumb-wrapper">
-            <img src="https://via.placeholder.com/100/444/fff?text=3" class="link-thumb">
-            <span id="badge-3" class="lock-badge">🔒</span>
+    <!-- FOMU YA KUOMBA KUTOA PESA (WITHDRAW) -->
+    <div class="withdraw-box">
+        <h3>OMBA KUTOA PESA (WITHDRAW)</h3>
+        
+        <div class="form-group">
+            <label>Chagua Mtandao wa Simu</label>
+            <select id="networkSelect">
+                <option value="M-Pesa">M-Pesa (Vodacom)</option>
+                <option value="Tigo Pesa">Mixx by Yas (Tigo Pesa)</option>
+                <option value="Airtel Money">Airtel Money</option>
+                <option value="Halopesa">Halopesa</option>
+            </select>
         </div>
-        <div class="link-text">
-            KONEKSHENI VIDEOS ZA WANACHUO
-            <span id="status-3" class="status-tag">IMEFUNGWA • LIPIA TSH 2,500</span>
+
+        <div class="form-group">
+            <label>Namba ya Simu ya Kupokea Pesa</label>
+            <input type="tel" id="phoneInput" placeholder="Mfano: 0754 000 000">
         </div>
+
+        <div class="form-group">
+            <label>Jina la Usajili wa Namba</label>
+            <input type="text" id="nameInput" placeholder="Andika jina kamili la laini">
+        </div>
+
+        <div class="form-group">
+            <label>Kiasi Unachotoa (TZS)</label>
+            <input type="number" id="amountInput" value="40000">
+        </div>
+
+        <button class="withdraw-btn" onclick="requestWithdraw()">TUMA OMBI LA KUTOA PESA</button>
     </div>
 
-    <!-- KIPENGELE 4 -->
-    <div id="card-4" class="video-card border-pink" onclick="handleCardClick('4', 'VIDEO ZA USWAZI KISA IPHONE 17', 'TSh 2,000', 'https://www.w3schools.com/html/mov_bbb.mp4')">
-        <div class="thumb-wrapper">
-            <img src="https://via.placeholder.com/100/555/fff?text=4" class="link-thumb">
-            <span id="badge-4" class="lock-badge">🔒</span>
+    <!-- HISTORIA YA MAOMBI YA WITHDRAW -->
+    <div class="history-box">
+        <h3>HISTORIA YA MIAMALA YAKO</h3>
+        <div id="txList">
+            <div class="tx-item">
+                <div>
+                    <strong>TSh 16,000</strong> (M-Pesa • 0754***120)<br>
+                    <small style="color:#aaa;">20 Nov 2026 • Makato yalikatwa: TSh 4,000</small>
+                </div>
+                <span class="status-paid">IMELIPWA</span>
+            </div>
         </div>
-        <div class="link-text">
-            VIDEO ZA USWAZI KISA IPHONE 17
-            <span id="status-4" class="status-tag">IMEFUNGWA • LIPIA TSH 2,000</span>
-        </div>
-    </div>
-</div>
-
-<!-- KIZUIZI CHA MALIPO KWA SIMU TANZANIA -->
-<div id="paywallModal" class="modal-overlay">
-    <div class="modal-box">
-        <span class="close-btn" onclick="closeModal('paywallModal')">&times;</span>
-        <div style="font-size: 32px;">🔒</div>
-        <div id="modalTitle" class="modal-title">JINA LA VIDEO</div>
-        <div id="modalPrice" class="price-tag">LIPIA: TSH 2,000</div>
-
-        <!-- MAELEKEZO YA LIPA NAMBA / SIMU -->
-        <div class="payment-info-box">
-            <p style="font-size: 12px; color: #ccc;">Tuma pesa kwenda (M-Pesa / Tigo Pesa / Airtel):</p>
-            <div id="lipaNumberText" class="pay-number">07XX XXX XXX</div>
-            <p style="font-size: 13px; color: #00e639; font-weight: bold;">JINA: WEKA JINA LAKO HAPA</p>
-            <button class="copy-btn" onclick="copyNumber()">📋 COPY NAMBA YA MALIPO</button>
-        </div>
-
-        <!-- Kitufe cha WhatsApp kuthibitisha muamala -->
-        <a id="waConfirmBtn" href="#" target="_blank" class="wa-btn">✅ NIMESHALIPIA • NIPATIE CODE WHATSAPP</a>
-
-        <div class="verify-section">
-            <p style="font-size: 12px; color: #ccc; margin-bottom: 6px;">Weka Code uliyopewa kufungua video hii:</p>
-            <input type="text" id="unlockCodeInput" class="verify-input" placeholder="Ingiza Code Hapa">
-            <button class="verify-btn" onclick="verifyAndUnlock()">FUNGUA VIDEO SASA</button>
-        </div>
-    </div>
-</div>
-
-<!-- DIRISHA LA VIDEO -->
-<div id="playerModal" class="modal-overlay">
-    <div class="player-box">
-        <span class="close-btn" onclick="closeVideoPlayer()">&times;</span>
-        <h4 id="playerTitle" style="color: #00e639; font-size: 15px;">INACHEZA VIDEO</h4>
-        <video id="videoPlayer" controls controlsList="nodownload">
-            <source id="videoSource" src="" type="video/mp4">
-        </video>
     </div>
 </div>
 
 <script>
-    // WEKA NAMBA YAKO YA KUPOKEA PESA HAPA (Bila nafasi kwenye rawNumber)
-    const rawNumber = '0700000000'; 
-    const whatsappNumber = '255700000000'; // Weka namba yako ya WhatsApp ikianza na 255
+    // Mfano wa mahesabu ya awali (Wewe Admin unaweza kubadili asilimia ya makato)
+    const commissionRate = 0.20; // 20% makato yako
+    let grossEarnings = 50000;
+    let adminFee = grossEarnings * commissionRate;
+    let netBalance = grossEarnings - adminFee;
 
-    let currentId = '';
-    let currentTitle = '';
-    let currentVideoUrl = '';
+    // Namba yako wewe Admin ya kupokea ombi la Withdraw WhatsApp
+    const adminWhatsApp = '255700000000';
 
-    // Namba za siri za kila sehemu kipekee
-    const sectionPasswords = {
-        '1': 'BONGO11',
-        '2': 'STAA22',
-        '3': 'CHUO33',
-        '4': 'USWAZI44'
-    };
+    function updateDisplay() {
+        document.getElementById('grossDisplay').innerText = 'TSh ' + grossEarnings.toLocaleString();
+        document.getElementById('feeDisplay').innerText = '- TSh ' + adminFee.toLocaleString();
+        document.getElementById('netBalanceDisplay').innerText = 'TSh ' + netBalance.toLocaleString();
+        document.getElementById('amountInput').value = netBalance;
+    }
 
-    window.onload = function() {
-        ['1', '2', '3', '4'].forEach(id => {
-            if (localStorage.getItem('unlocked_' + id) === 'true') {
-                markCardUnlocked(id);
-            }
-        });
-    };
+    function requestWithdraw() {
+        const network = document.getElementById('networkSelect').value;
+        const phone = document.getElementById('phoneInput').value.trim();
+        const fullName = document.getElementById('nameInput').value.trim();
+        const amount = parseInt(document.getElementById('amountInput').value);
 
-    function handleCardClick(id, title, price, videoUrl) {
-        currentId = id;
-        currentTitle = title;
-        currentVideoUrl = videoUrl;
-
-        if (localStorage.getItem('unlocked_' + id) === 'true') {
-            openVideoPlayer(title, videoUrl);
-        } else {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalPrice').innerText = 'LIPIA: ' + price;
-            
-            const msg = encodeURIComponent(`Habari, nimeshalipia ${price} kwa ajili ya "${title}". Naomba Code ya kufungua.`);
-            document.getElementById('waConfirmBtn').href = `https://wa.me/${whatsappNumber}?text=${msg}`;
-            
-            document.getElementById('unlockCodeInput').value = '';
-            document.getElementById('paywallModal').style.display = 'flex';
+        if (!phone || !fullName || !amount) {
+            alert('Tafadhali jaza taarifa zote za malipo!');
+            return;
         }
-    }
-
-    function copyNumber() {
-        navigator.clipboard.writeText(rawNumber);
-        alert('Namba ' + rawNumber + ' imekopiwa! Nenda kwenye menu yako ya malipo ukalipie kisha rudi hapa.');
-    }
-
-    function verifyAndUnlock() {
-        const enteredCode = document.getElementById('unlockCodeInput').value.trim().toUpperCase();
-        if (enteredCode === sectionPasswords[currentId]) {
-            localStorage.setItem('unlocked_' + currentId, 'true');
-            markCardUnlocked(currentId);
-            closeModal('paywallModal');
-            openVideoPlayer(currentTitle, currentVideoUrl);
-        } else {
-            alert('Code sio sahihi! Hakikisha umelipia kipengele hiki kwanza.');
+        if (amount > netBalance || amount < 2000) {
+            alert('Kiasi hakitoshi au kiko chini ya kiwango cha chini (TSh 2,000).');
+            return;
         }
+
+        // Punguza salio lake baada ya kuomba
+        netBalance -= amount;
+        updateDisplay();
+
+        // Ongeza kwenye historia kama "INASUBIRI MALIPO"
+        const txList = document.getElementById('txList');
+        const newTx = document.createElement('div');
+        newTx.className = 'tx-item';
+        newTx.innerHTML = `
+            <div>
+                <strong>TSh ${amount.toLocaleString()}</strong> (${network} • ${phone})<br>
+                <small style="color:#aaa;">Jina: ${fullName} • Leo</small>
+            </div>
+            <span class="status-pending">INASUBIRI MALIPO</span>
+        `;
+        txList.prepend(newTx);
+
+        // Tuma taarifa moja kwa moja kwako Admin (WhatsApp) ili umtumie pesa
+        const msg = encodeURIComponent(
+            `🔔 *OMBI JIPYA LA WITHDRAW*\n\n` +
+            `• Mtandao: ${network}\n` +
+            `• Namba: ${phone}\n` +
+            `• Jina: ${fullName}\n` +
+            `• Kiasi cha Kumtumia: TSh ${amount.toLocaleString()}\n` +
+            `• Makato yako (20%) yameshakata.\n\n` +
+            `Tafadhali tuma muamala huu.`
+        );
+        window.open(`https://wa.me/${adminWhatsApp}?text=${msg}`, '_blank');
     }
 
-    function markCardUnlocked(id) {
-        const card = document.getElementById('card-' + id);
-        card.classList.add('unlocked');
-        document.getElementById('badge-' + id).innerText = '🔓';
-        document.getElementById('status-' + id).innerText = 'IMEFUNGULIWA • BONYEZA KUANGALIA';
-    }
-
-    function openVideoPlayer(title, url) {
-        document.getElementById('playerTitle').innerText = title;
-        const player = document.getElementById('videoPlayer');
-        document.getElementById('videoSource').src = url;
-        player.load();
-        document.getElementById('playerModal').style.display = 'flex';
-        player.play();
-    }
-
-    function closeVideoPlayer() {
-        const player = document.getElementById('videoPlayer');
-        player.pause();
-        closeModal('playerModal');
-    }
-
-    function closeModal(modalId) {
-        document.getElementById(modalId).style.display = 'none';
-    }
+    updateDisplay();
 </script>
 
 </body>
