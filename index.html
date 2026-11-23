@@ -1,471 +1,154 @@
 <!DOCTYPE html>
 <html lang="sw">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creator Dashboard - Takwimu & Malipo</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-        body {
-            background-color: #f4f6fa;
-            color: #1e293b;
-            padding: 16px;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        /* Top Bar */
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #ffffff;
-            padding: 14px 18px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            margin-bottom: 18px;
-        }
-        .brand {
-            font-weight: 900;
-            font-size: 18px;
-            color: #4f46e5;
-            letter-spacing: 0.5px;
-        }
-        .greeting {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 14px;
-            color: #0f172a;
-        }
-        /* Navigation Tabs */
-        .nav-tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 18px;
-            overflow-x: auto;
-        }
-        .tab-btn {
-            padding: 9px 16px;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-            background: #ffffff;
-            color: #475569;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-        .tab-btn.active {
-            background: #4f46e5;
-            color: #ffffff;
-            border-color: #4f46e5;
-        }
-        /* Grid ya Kadi 4 za Takwimu kama kwenye picha */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-            gap: 14px;
-            margin-bottom: 20px;
-        }
-        .stat-card {
-            background: #ffffff;
-            padding: 18px;
-            border-radius: 14px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-            border: 1px solid #eef2f6;
-        }
-        .stat-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        .stat-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-        }
-        .icon-purple { background: #ede9fe; color: #6d28d9; }
-        .icon-orange { background: #ffedd5; color: #ea580c; }
-        .icon-pink { background: #fce7f3; color: #db2777; }
-        .icon-blue { background: #e0f2fe; color: #0284c7; }
-        .stat-value {
-            font-size: 21px;
-            font-weight: 800;
-            color: #0f172a;
-        }
-        .stat-label {
-            font-size: 13px;
-            color: #64748b;
-            margin-top: 2px;
-        }
-        .stat-trend {
-            font-size: 12px;
-            font-weight: 700;
-            margin-top: 8px;
-            display: inline-block;
-        }
-        .trend-up { color: #16a34a; }
-        .trend-down { color: #dc2626; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ukurasa wa Viungo</title>
+  <style>
+    :root {
+      /* Badilisha rangi ya background hapa chini upendavyo */
+      --bg-color: #f4f6f9;
+      --card-bg: #ffffff;
+      --text-color: #111827;
+    }
 
-        /* Overview Section */
-        .panel-box {
-            background: #ffffff;
-            padding: 18px;
-            border-radius: 14px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-            border: 1px solid #eef2f6;
-            margin-bottom: 18px;
-        }
-        .panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-        .panel-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #0f172a;
-        }
-        .filter-group {
-            display: flex;
-            gap: 6px;
-        }
-        .filter-btn {
-            padding: 6px 12px;
-            border-radius: 6px;
-            border: 1px solid #cbd5e1;
-            background: #f8fafc;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .filter-btn.active {
-            background: #2563eb;
-            color: #fff;
-            border-color: #2563eb;
-        }
-        /* Jedwali la Waliolipa kwenye Post Zako */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-            text-align: left;
-        }
-        th {
-            padding: 10px 8px;
-            border-bottom: 2px solid #f1f5f9;
-            color: #64748b;
-            font-weight: 600;
-        }
-        td {
-            padding: 12px 8px;
-            border-bottom: 1px solid #f1f5f9;
-        }
-        .badge {
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 700;
-        }
-        .badge-success { background: #dcfce7; color: #15803d; }
-        .badge-pending { background: #fef9c3; color: #a16207; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-        /* Fomu ya Withdraw */
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 12px;
-        }
-        @media (max-width: 600px) {
-            .form-grid { grid-template-columns: 1fr; }
-        }
-        .input-group label {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            color: #475569;
-            margin-bottom: 4px;
-        }
-        .input-group input, .input-group select {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        .submit-btn {
-            width: 100%;
-            margin-top: 14px;
-            padding: 13px;
-            background: #4f46e5;
-            color: #ffffff;
-            border: none;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .hidden { display: none; }
-    </style>
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      padding: 24px 14px 40px;
+    }
+
+    .container {
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    .profile-box {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .avatar {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #1f2937;
+      margin-bottom: 12px;
+      background-color: #e5e7eb;
+    }
+
+    .bio-text {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.45;
+      text-transform: uppercase;
+      color: var(--text-color);
+    }
+
+    .link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background-color: var(--card-bg);
+      text-decoration: none;
+      color: var(--text-color);
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 3px solid #2563eb;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+      transition: transform 0.15s ease;
+    }
+
+    .link-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .thumb {
+      width: 54px;
+      height: 54px;
+      border-radius: 6px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background-color: #e5e7eb;
+    }
+
+    .card-title {
+      flex: 1;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.35;
+      text-transform: uppercase;
+    }
+
+    /* Rangi za fremu za kila kadi */
+    .border-green { border-color: #16a34a; }
+    .border-red { border-color: #dc2626; }
+    .border-blue { border-color: #2563eb; }
+    .border-purple { border-color: #9333ea; }
+    .border-orange { border-color: #ea580c; }
+    .border-lime { border-color: #65a30d; }
+  </style>
 </head>
 <body>
-
-<div class="container">
-    <div class="top-bar">
-        <div class="brand">BONGO PAY • DASHBOARD</div>
-        <span style="font-size: 12px; background: #e0e7ff; color: #3730a3; padding: 4px 10px; border-radius: 12px; font-weight: bold;">Makato: 20%</span>
+  <div class="container">
+    <div class="profile-box">
+      <img
+        class="avatar"
+        src="https://via.placeholder.com/150?text=Profile"
+        alt="Picha ya wasifu"
+      />
+      <p class="bio-text">
+        Weka maelezo yako mafupi hapa chini ya picha ya wasifu
+      </p>
     </div>
 
-    <div class="greeting">Hi, <span id="userName">Thomas Daniel</span></div>
+    <div class="link-list">
+      <a class="link-card border-green" href="#">
+        <img class="thumb" src="https://via.placeholder.com/80?text=1" alt="Kadi 1" />
+        <span class="card-title">Kichwa cha Kiungo cha Kwanza</span>
+      </a>
 
-    <!-- Menu ya Juu -->
-    <div class="nav-tabs">
-        <button class="tab-btn active" onclick="switchTab('overview', this)">📊 Takwimu (Overview)</button>
-        <button class="tab-btn" onclick="switchTab('payout', this)">💸 Toa Pesa (Withdraw)</button>
-        <button class="tab-btn" onclick="switchTab('boosts', this)">🚀 Waliolipa Kwenye Post</button>
+      <a class="link-card border-red" href="#">
+        <img class="thumb" src="https://via.placeholder.com/80?text=2" alt="Kadi 2" />
+        <span class="card-title">Kichwa cha Kiungo cha Pili</span>
+      </a>
+
+      <a class="link-card border-blue" href="#">
+        <img class="thumb" src="https://via.placeholder.com/80?text=3" alt="Kadi 3" />
+        <span class="card-title">Kichwa cha Kiungo cha Tatu</span>
+      </a>
+
+      <a class="link-card border-purple" href="#">
+        <img class="thumb" src="https://via.placeholder.com/80?text=4" alt="Kadi 4" />
+        <span class="card-title">Kichwa cha Kiungo cha Nne</span>
+      </a>
+
+      <a class="link-card border-orange" href="#">
+        <img class="thumb" src="https://via.placeholder.com/80?text=5" alt="Kadi 5" />
+        <span class="card-title">Kichwa cha Kiungo cha Tano</span>
+      </a>
+
+      <a class="link-card border-lime" href="#">
+        <img class="thumb" src="https://via.placeholder.com/80?text=6" alt="Kadi 6" />
+        <span class="card-title">Kichwa cha Kiungo cha Sita</span>
+      </a>
     </div>
-
-    <!-- KADI 4 ZA TAKWIMU (BALANCE, HOLD, WALIOLIPA, PAYOUTS) -->
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-header">
-                <div class="stat-icon icon-purple">💎</div>
-                <div>
-                    <div id="netBalance" class="stat-value">309,000.00 TZS</div>
-                    <div class="stat-label">Balance (Salio Halisi)</div>
-                </div>
-            </div>
-            <span class="stat-trend trend-up">+18.2% Baada ya makato</span>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-header">
-                <div class="stat-icon icon-orange">⏳</div>
-                <div>
-                    <div id="holdBalance" class="stat-value">0.00 TZS</div>
-                    <div class="stat-label">Hold Balance (Inayosubiri)</div>
-                </div>
-            </div>
-            <span class="stat-trend trend-down">Inahakikiwa na Admin</span>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-header">
-                <div class="stat-icon icon-pink">👥</div>
-                <div>
-                    <div id="paidCount" class="stat-value">154</div>
-                    <div class="stat-label">Waliolipa (Boosted Post)</div>
-                </div>
-            </div>
-            <span class="stat-trend trend-up">+14 Leo</span>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-header">
-                <div class="stat-icon icon-blue">🏦</div>
-                <div>
-                    <div id="payoutCount" class="stat-value">15</div>
-                    <div class="stat-label">Payouts (Ulizotoa)</div>
-                </div>
-            </div>
-            <span class="stat-trend trend-up">Zimekamilika</span>
-        </div>
-    </div>
-
-    <!-- SEHEMU YA 1: TRANSACTION OVERVIEW -->
-    <div id="tab-overview" class="panel-box">
-        <div class="panel-header">
-            <div>
-                <div class="panel-title">Transaction Overview</div>
-                <small style="color: #64748b;">Mwenendo wa malipo kutoka kwenye post ulizoboost</small>
-            </div>
-            <div class="filter-group">
-                <button class="filter-btn active" onclick="filterDays(1, this)">1 Day</button>
-                <button class="filter-btn" onclick="filterDays(3, this)">3 Days</button>
-                <button class="filter-btn" onclick="filterDays(7, this)">7 Days</button>
-            </div>
-        </div>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Post / Kipengele</th>
-                    <th>Waliolipa</th>
-                    <th>Jumla (Gross)</th>
-                    <th>Salio Lako (80%)</th>
-                </tr>
-            </thead>
-            <tbody id="overviewTable">
-                <tr>
-                    <td><strong>Video za Kibongo Exclusive</strong></td>
-                    <td>82 Watu</td>
-                    <td>164,000 TZS</td>
-                    <td style="color:#16a34a; font-weight:bold;">131,200 TZS</td>
-                </tr>
-                <tr>
-                    <td><strong>Connection za Mastaa</strong></td>
-                    <td>45 Watu</td>
-                    <td>135,000 TZS</td>
-                    <td style="color:#16a34a; font-weight:bold;">108,000 TZS</td>
-                </tr>
-                <tr>
-                    <td><strong>Koneksheni za Wanachuo</strong></td>
-                    <td>27 Watu</td>
-                    <td>87,250 TZS</td>
-                    <td style="color:#16a34a; font-weight:bold;">69,800 TZS</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- SEHEMU YA 2: WITHDRAW / PAYOUT -->
-    <div id="tab-payout" class="panel-box hidden">
-        <div class="panel-title">Omba Kutoa Pesa (Payout Request)</div>
-        <small style="color: #64748b;">Pesa itatumwa kwenye namba yako baada ya makato ya 20% kukatwa.</small>
-
-        <div class="form-grid">
-            <div class="input-group">
-                <label>Mtandao wa Simu</label>
-                <select id="network">
-                    <option value="M-Pesa">M-Pesa (Vodacom)</option>
-                    <option value="Mixx by Yas">Mixx by Yas (Tigo Pesa)</option>
-                    <option value="Airtel Money">Airtel Money</option>
-                    <option value="Halopesa">Halopesa</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>Namba ya Kupokea Pesa</label>
-                <input type="tel" id="phone" placeholder="07XX XXX XXX">
-            </div>
-            <div class="input-group">
-                <label>Jina la Usajili</label>
-                <input type="text" id="accName" placeholder="Jina kamili la laini">
-            </div>
-            <div class="input-group">
-                <label>Kiasi Unachotoa (TZS)</label>
-                <input type="number" id="withdrawAmount" value="309000">
-            </div>
-        </div>
-
-        <button class="submit-btn" onclick="submitPayout()">TUMA OMBI LA MALIPO KWA ADMIN</button>
-    </div>
-
-    <!-- SEHEMU YA 3: ORODHA YA WATEJA WALIOLIPA -->
-    <div id="tab-boosts" class="panel-box hidden">
-        <div class="panel-title">Miamala ya Hivi Karibuni (Boosted Post)</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Mteja / Muamala</th>
-                    <th>Kipengele</th>
-                    <th>Kiasi</th>
-                    <th>Hali</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>0754***891 (M-Pesa)</td>
-                    <td>Video za Kibongo</td>
-                    <td>2,000 TZS</td>
-                    <td><span class="badge badge-success">Imelipwa</span></td>
-                </tr>
-                <tr>
-                    <td>0655***302 (Tigo)</td>
-                    <td>Connection za Mastaa</td>
-                    <td>3,000 TZS</td>
-                    <td><span class="badge badge-success">Imelipwa</span></td>
-                </tr>
-                <tr>
-                    <td>0788***114 (Airtel)</td>
-                    <td>Video za Wanachuo</td>
-                    <td>2,500 TZS</td>
-                    <td><span class="badge badge-success">Imelipwa</span></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<script>
-    // WEKA NAMBA YAKO HALISI YA WHATSAPP HAPA (Mfano: 255743448623 bila alama ya +)
-    const ADMIN_WHATSAPP = '255743448623'; 
-
-    let currentBalance = 309000;
-    let holdBalance = 0;
-
-    function switchTab(tabName, btn) {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        document.getElementById('tab-overview').classList.add('hidden');
-        document.getElementById('tab-payout').classList.add('hidden');
-        document.getElementById('tab-boosts').classList.add('hidden');
-
-        document.getElementById('tab-' + tabName).classList.remove('hidden');
-    }
-
-    function filterDays(days, btn) {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        if (days === 1) {
-            document.getElementById('paidCount').innerText = '14';
-        } else if (days === 3) {
-            document.getElementById('paidCount').innerText = '58';
-        } else {
-            document.getElementById('paidCount').innerText = '154';
-        }
-    }
-
-    function submitPayout() {
-        const net = document.getElementById('network').value;
-        const phone = document.getElementById('phone').value.trim();
-        const name = document.getElementById('accName').value.trim();
-        const amt = parseInt(document.getElementById('withdrawAmount').value);
-
-        if (!phone || !name || !amt || amt <= 0) {
-            alert('Jaza taarifa zote kwanza!');
-            return;
-        }
-        if (amt > currentBalance) {
-            alert('Kiasi kinazidi salio lako lililopo!');
-            return;
-        }
-
-        // Hamisha pesa kwenda Hold Balance ikisubiri uthibitisho wako Admin
-        currentBalance -= amt;
-        holdBalance += amt;
-
-        document.getElementById('netBalance').innerText = currentBalance.toLocaleString() + '.00 TZS';
-        document.getElementById('holdBalance').innerText = holdBalance.toLocaleString() + '.00 TZS';
-
-        const text = encodeURIComponent(
-            `🔔 *OMBI LA WITHDRAW (BONGO PAY)*\n\n` +
-            `• Jina: ${name}\n` +
-            `• Mtandao: ${net}\n` +
-            `• Namba: ${phone}\n` +
-            `• Kiasi: ${amt.toLocaleString()} TZS\n` +
-            `• Status: Iko kwenye Hold Balance inasubiri malipo.`
-        );
-        window.open(`https://wa.me/${ADMIN_WHATSAPP}?text=${text}`, '_blank');
-    }
-</script>
-
+  </div>
 </body>
 </html>
